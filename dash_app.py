@@ -113,6 +113,7 @@ def update_candlestick_graph(n_clicks, value): # n_clicks doesn't get used, we o
 @app.callback(
     dash.dependencies.Output('trade-output', 'children'),
     dash.dependencies.Input('submit-trade', 'n_clicks'),
+    dash.dependencies.Input('Buy_Or_Sell', 'value'),
     dash.dependencies.State('currency-pair', 'value'),
     dash.dependencies.State('trade-amount', 'value'),
     # We DON'T want to start executing trades just because n_clicks was initialized to 0!!!
