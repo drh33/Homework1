@@ -7,6 +7,7 @@ import pandas as pd
 from os import listdir, remove
 import pickle
 from time import sleep
+from ib_insync import *
 
 from helper_functions import * # this statement imports all functions from your helper_functions file!
 
@@ -73,8 +74,8 @@ app.layout = html.Div([
 # Callback for what to do when submit-button is pressed
 @app.callback(
     # there's more than one output here, so you have to use square brackets to pass it in as an array.
-    [dash.dependencies.Output('candlestick-graph', 'figure'),
-     dash.dependencies.Output('the_output', 'children')],
+    [dash.dependencies.Output('the_output', 'children'),
+     dash.dependencies.Output('candlestick-graph', 'figure')],
     dash.dependencies.Input('submit-button', 'n_clicks'),
     dash.dependencies.State('the_input', 'value')
 )
@@ -88,9 +89,9 @@ def update_candlestick_graph(n_clicks, value): # n_clicks doesn't get used, we o
         sleep(1)
     if os.path.isfile('currency_pair_history.csv'):
         # Read in the historical prices
-        b = open('currency_pair_history.csv')
-        df = b.read()
-        b.close()
+        df = pd.read_csv('currency_pair_history.csv')
+
+
     # Remove the file 'currency_pair_history.csv'
         os.remove('currency_pair_History.csv')
     # Make the candlestick figure
@@ -104,7 +105,7 @@ def update_candlestick_graph(n_clicks, value): # n_clicks doesn't get used, we o
                         close=df['close']
          )])
     # Give the candlestick figure a title
-        html.H1("Currency Candlestick Graph")
+        fig.update_layout(title='Currency Candlestick Graph')
     # Return your updated text to currency-output, and the figure to candlestick-graph outputs
         return ('Submitted query for ' + value), fig
 

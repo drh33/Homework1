@@ -14,7 +14,7 @@ master_client_id = 1
 # choose your dedicated id just for orders. I picked 1111.
 orders_client_id = 1111
 # account number: you'll need to fill in yourself. The below is one of my paper trader account numbers.
-acc_number = 'DU1267860'
+acc_number = 'DU229538'
 ########################################################################################################################
 
 # Run your helper function to clear out any io files left over from old runs
@@ -67,6 +67,7 @@ while True:
 
     # If there's a file named trade_order.p in listdir(), then enter the loop below.
     if 'trade_order.p' in listdir():
+        print('trade is here')
 
         # Create a special instance of IB() JUST for entering orders.
         # The reason for this is because the way that Interactive Brokers automatically provides valid order IDs to
@@ -82,7 +83,7 @@ while True:
         contract = Forex(trd_ordr)
         order = MarketOrder(trd_ordr, acc_number)
 
-        new_order = ib_orders.placeOrder()
+        new_order = ib_orders.placeOrder(order)
 
         # The new_order object returned by the call to ib_orders.placeOrder() that you've written is an object of class
         #   `trade` that is kept continually updated by the `ib_insync` machinery. It's a market order; as such, it will

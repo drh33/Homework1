@@ -10,7 +10,8 @@ import pandas as pd
 df = pd.read_csv('https://raw.githubusercontent.com/plotly/datasets/master/finance-charts-apple.csv')
 
 # 2) Save a CSV
-df.to_csv('aapl_data.csv')
+
+
 
 # 3) Read a CSV from file
 nother_csv = pd.read_csv('aapl_data.csv')
